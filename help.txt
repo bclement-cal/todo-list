@@ -1,0 +1,8 @@
+Commands:   help        Display this help
+            list        Display the To-Do list
+            add         Add a task
+            remove      Remove a task
+            complete    Mark a task as complete
+            save        Save the To-Do list
+            load        Load a To-Do list
+            quit        Quit the program
