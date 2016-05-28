@@ -25,12 +25,18 @@ while input = get_input('>> ').downcase
   when 'list'
     puts todo_list
   when 'load'
-    filename = get_list_name + '.todo.yaml'
-    todo_list = TodoList.load(filename)
+    list_name = get_list_name
+    todo_list = TodoList.load(list_name) unless list_name.empty?
   when'save'
-    todo_list.name = get_list_name unless todo_list.has_name?
-    filename = todo_list.name + '.todo.yaml'
-    todo_list.save(filename)
+    if todo_list.has_name?
+      todo_list.save
+    else
+      list_name = get_list_name
+      unless list_name.empty?
+        todo_list.set_name(list_name) unless todo_list.has_name?
+        todo_list.save
+      end
+    end
   when 'quit'
     break
   end
