@@ -1,10 +1,18 @@
 require 'yaml'
 
 class TodoList
-  attr_reader :tasks
+  attr_reader   :tasks  
+  attr_accessor :name
+
+  FILE_EXT = '.todo.yaml'
 
   def initialize
     @tasks = []
+    @name = nil
+  end
+
+  def has_name?
+    not @name.nil?
   end
 
   def add_task(text)
@@ -22,15 +30,14 @@ class TodoList
     self
   end
 
-  def load(filename)
+  def self.load(filename)
     if File.exists?(filename)
-      todo_list = File.read(filename)
-      @tasks = YAML.load(todo_list).tasks
+      todo_list = YAML.load(File.read(filename))
+      puts 'Loaded'
+      todo_list
     else
       puts 'To-Do list does not exist'
     end
-
-    self
   end
 
   def remove_task(task_num)

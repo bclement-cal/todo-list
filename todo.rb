@@ -6,7 +6,7 @@ def get_input(prompt = '')
 end
 
 def get_list_name
-  get_input('List name: ').downcase.gsub(' ', '_')
+  get_input('To-Do list name: ').downcase.gsub(' ', '_')
 end
 
 todo_list = TodoList.new
@@ -26,11 +26,10 @@ while input = get_input('>> ').downcase
     puts todo_list
   when 'load'
     filename = get_list_name + '.todo.yaml'
-    todo_list.load(filename)
+    todo_list = TodoList.load(filename)
   when'save'
-    # Name needs to be stored in TodoList for use by #save
-    list_name ||= get_list_name
-    filename = list_name + '.todo.yaml'
+    todo_list.name = get_list_name unless todo_list.has_name?
+    filename = todo_list.name + '.todo.yaml'
     todo_list.save(filename)
   when 'quit'
     break
